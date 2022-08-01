@@ -1,8 +1,6 @@
 import React from "react";
 import ApprovedQuestionaire from "./pages/ApprovedQuestionaire";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import PendingQuestionaires from "./pages/PendingQuestionaires";
-import QuestionairePage from "./pages/QuestionairePage";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import QuestionaireRouter from "./routes/QuestionaireRouter";
 
 const App = () => {

@@ -1,30 +1,19 @@
 import React, {useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import Table from '../components/Table'
+import { fetch_options, URI } from '../constants'
 
 const PendingQuestionaires = () => {
   const [pending, setPending] = useState(null)
   const [message, setMessage] = useState('')
   useEffect(()=>{
-    fetch('http://localhost:3000/questionaires/pending', {headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'http://localhost:3000'
-
-    }}).then(response => response.json()).then(questionaire => setPending(questionaire))
+    fetch(`${URI}/questionaires/pending`,fetch_options()).then(response => response.json()).then(questionaire => setPending(questionaire))
 
     return () => {
     }
   }, [message])
   const approveQuestionaire = (id) => {
-    fetch(`http://localhost:3000/questionaires/${id}/approve`, {
-      method: "PATCH",
-      headers:{
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://localhost:3000'
-      }
-    }).then((res)=> res.json()).then(result => setMessage(result))
+    fetch(`${URI}/questionaires/${id}/approve`, fetch_options("PATCH")).then((res)=> res.json()).then(result => setMessage(result))
   }
   console.log(message)
   return (

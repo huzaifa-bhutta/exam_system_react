@@ -1,23 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { fetch_options, URI } from "../constants";
 
 const Questions = ({ questions_filter }) => {
-  const [message, setMessage] = useState('')
   const [questions, setQuestions] = useState(questions_filter)
   const onDeleteHandler = (question_id) => {
-    fetch(`http://localhost:3000//questions/${question_id}`, {
-      method: "DELETE",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "http://localhost:3000",
-      },
-    }).then((response) => response.json()).then(result => {
+    fetch(`${URI}/questions/${question_id}`, fetch_options("DELETE")).then((response) => response.json()).then(result => {
       result.status === 200 && setQuestions(()=> questions_filter.filter(elem => elem.id !== question_id ))
     });
   };
-  useEffect(()=> {
-    console.log(message)
-  },[message])
   return (
     <div className='card m-3'>
       <div className='card-header d-flex justify-content-between align-items-center'>

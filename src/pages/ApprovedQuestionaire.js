@@ -1,26 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import Table from '../components/Table'
 import {Link} from 'react-router-dom'
+import { fetch_options, URI } from '../constants'
 const ApprovedQuestionaire = () => {
   const [approved, setApproved] = useState(null)
   const [message, setMessage] = useState('')
   useEffect(()=>{
-    fetch('http://localhost:3000/questionaires/approved', {headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'http://localhost:3000'
-
-    }}).then(response => response.json()).then(questionaire => setApproved(questionaire))
+    fetch(`${URI}/questionaires/approved`, fetch_options()).then(response => response.json()).then(questionaire => setApproved(questionaire))
   }, [message])
   const rejectQuestionaire = (id) => {
-    fetch(`http://localhost:3000/questionaires/${id}/reject`, {
-      method: "PATCH",
-      headers:{
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'http://localhost:3000'
-      }
-    }).then((res)=> res.json()).then(result => setMessage(result))
+    fetch(`${URI}/questionaires/${id}/reject`, fetch_options("PATCH")).then((res)=> res.json()).then(result => setMessage(result))
   }
   return (
     <Table>
