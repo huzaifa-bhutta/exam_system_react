@@ -1,15 +1,17 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import Table from '../components/Table'
 import {Link} from 'react-router-dom'
 import { fetch_options, URI } from '../constants'
+import { GlobalContext } from '../context/GlobalContext'
 const ApprovedQuestionaire = () => {
   const [approved, setApproved] = useState(null)
-  const [message, setMessage] = useState('')
+  const {message, setMessage} = useContext(GlobalContext)
   useEffect(()=>{
     fetch(`${URI}/questionaires/approved`, fetch_options()).then(response => response.json()).then(questionaire => setApproved(questionaire))
   }, [message])
   const rejectQuestionaire = (id) => {
-    fetch(`${URI}/questionaires/${id}/reject`, fetch_options("PATCH")).then((res)=> res.json()).then(result => setMessage(result))
+    alert("DO you want to reject the questionaire?")
+    fetch(`${URI}/questionaires/${id}/reject`, fetch_options("PATCH")).then((res)=> res.json()).then(result => setMessage(result.message))
   }
   return (
     <Table>

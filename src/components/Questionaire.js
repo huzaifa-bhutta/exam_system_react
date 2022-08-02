@@ -3,9 +3,9 @@ import Questions from './Questions'
 
 const Questionaire = ({questionaire}) => {
   return (
-    <div className="card">
+    <div className="card m-3">
     <div className="card-header">
-       {questionaire.subject.title}
+       {questionaire?.subject?.title}
     </div>
     <div className="card-body">
       <h5 className="card-title">{questionaire.name}</h5>
