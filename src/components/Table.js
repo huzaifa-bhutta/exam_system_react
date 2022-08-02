@@ -1,6 +1,6 @@
 import React from "react";
 
-const Table = ({children}) => {
+const Table = ({children, last=""}) => {
   return (
     <table className='table'>
       <thead className='thead-dark'>
@@ -12,7 +12,7 @@ const Table = ({children}) => {
           <th scope='col'>Subject</th>
           <th scope='col'>Teacher</th>
           <th scope='col'>Approval</th>
-          <th scope='col'></th>
+          <th scope='col'>{last}</th>
         </tr>
       </thead>
       <tbody>

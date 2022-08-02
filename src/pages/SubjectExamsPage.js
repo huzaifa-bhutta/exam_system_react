@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Questionaire from '../components/Questionaire'
 import StartExam from '../components/StartExam'
 import { URI } from '../constants'
 

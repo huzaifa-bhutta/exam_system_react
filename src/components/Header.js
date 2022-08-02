@@ -29,6 +29,11 @@ const Header = () => {
               Approved Questionaires
             </Link>
           </li>
+          <li className='nav-item'>
+          <Link className='nav-link' to='/questionaires/teacher'>
+               Questionaires
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>

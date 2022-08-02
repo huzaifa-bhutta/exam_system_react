@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, useRouteMatch, useLocation, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import FlashMessage from 'react-flash-message'
 import QuestionaireRouter from "./routes/QuestionaireRouter";
 import Header from "./components/Header";
