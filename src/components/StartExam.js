@@ -16,11 +16,11 @@ const StartExam = ({exam}) => {
               <strong>Duration:</strong> {exam.duration} min
             </li>
             <li className='list-group-item'>
-              <strong>Start Time:</strong>{" "}
+              <strong>Start Time:</strong>
               {new Date(exam.designated_time).toDateString()}, {new Date(exam.designated_time).toTimeString().split(' ')[0]}
             </li>
           </ul>
-        <Link to={'#'} className="btn btn-primary">Start Exam</Link>
+        <Link to={`/questionaires/${exam.id}/start_exam`} className="btn btn-primary">Start Exam</Link>
         </div>
       </div>
   )

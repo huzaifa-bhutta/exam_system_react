@@ -19,7 +19,6 @@ const StudentResultPage = () => {
         setTotalScore(data.total_score)
       });
   }, []);
-  console.log(questions);
   return <div className="card">
   <div className="card-header">
       <h3>Questions</h3>

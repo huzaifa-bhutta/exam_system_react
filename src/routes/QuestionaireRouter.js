@@ -6,6 +6,7 @@ import QuestionairePage from '../pages/QuestionairePage'
 import QuestionairesPage from '../pages/QuestionairesPage'
 import StudentResultPage from '../pages/StudentResultPage'
 import StudentsListPage from '../pages/StudentsListPage'
+import TakeExamPage from '../pages/TakeExamPage'
 
 const QuestionaireRouter = () => {
   const {url} = useRouteMatch()
@@ -16,6 +17,7 @@ const QuestionaireRouter = () => {
       <Route path={`${url}/pending`} exact component={PendingQuestionaires}/>
       <Route path={`${url}/:id`} exact component={QuestionairePage} />
       <Route path={`${url}/:id/students`} exact component={StudentsListPage}/>
+      <Route path={`${url}/:id/start_exam`} exact component={TakeExamPage}/>
       <Route path={`${url}/:id/students/result/student/:student_id`} exact component={StudentResultPage}/>
     </Switch>
   )
