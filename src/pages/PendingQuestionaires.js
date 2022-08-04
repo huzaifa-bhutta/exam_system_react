@@ -1,24 +1,20 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useContext} from 'react'
 import { Link } from 'react-router-dom'
+import { useFetch } from '../hooks/useFetch'
 import Table from '../components/Table'
-import { fetch_options, URI } from '../constants'
 import { GlobalContext } from '../context/GlobalContext'
+import { approveExam } from '../apis/questionaires'
 
 const PendingQuestionaires = () => {
-  const [pending, setPending] = useState(null)
   const {message, setMessage} = useContext(GlobalContext)
-  useEffect(()=>{
-    fetch(`${URI}/questionaires/pending`,fetch_options()).then(response => response.json()).then(questionaire => setPending(questionaire))
-
-    return () => {
-    }
-  }, [message])
+  const [pending] = useFetch({url:'/questionaires/pending', dependencies: [message]})
   const approveQuestionaire = (id) => {
-    fetch(`${URI}/questionaires/${id}/approve`, fetch_options("PATCH")).then((res)=> res.json()).then(result => setMessage(result.message))
+    approveExam(id, result => setMessage(result.message))
   }
+
   return (
     <Table>
-      {pending !== null && pending.map((questionaire, index) => {
+      {pending && pending.map((questionaire, index) => {
         return <tr key={questionaire.id}>
         <th scope="row">{index+1}</th>
         <td><Link to={`/questionaires/${questionaire.id}`}>{questionaire.name}</Link></td>

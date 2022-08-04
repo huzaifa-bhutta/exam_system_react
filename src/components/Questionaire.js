@@ -11,11 +11,6 @@ const Questionaire = ({questionaire}) => {
       <p className="card-text">{questionaire.duration} min</p>
       <p className="card-text">{new Date(questionaire.designated_time).toDateString()}</p>
       <p className="card-text">Status:{questionaire.approval_status}</p>
-      {/* <% if current_user.teacher? %>
-        <%= link_to "Edit", edit_questionaire_path, className: "btn btn-primary" %>
-        <%= link_to "Delete", "#", method: :delete, className: "btn btn-secondary" %>
-      <% end %> */}
-      
     </div>
     
 </div>

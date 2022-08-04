@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useFetch } from "../hooks/useFetch";
 import ActiveExams from "../components/ActiveExams";
 import Subjects from "../components/Subjects";
-import { fetch_options, URI } from "../constants";
 
 const Home = () => {
-  const [subjects, setSubjects] = useState([]);
-  const [exams, setExams] = useState([]);
-  useEffect(() => {
-    fetch(`${URI}`, fetch_options())
-      .then((res) => res.json())
-      .then((result) => {
-        setSubjects(result.subjects);
-        setExams(result.exams);
-      });
-  }, []);
+  const [activeExams] = useFetch({ url: "/" });
   return (
-    <div>
-      <Subjects subjects={subjects} />
-      <ActiveExams activeExams={exams} />
-    </div>
+    <React.Fragment>
+      {activeExams && (
+        <React.Fragment>
+          <Subjects subjects={activeExams.subjects} />
+          <ActiveExams activeExams={activeExams.exams} />
+        </React.Fragment>
+      )}
+    </React.Fragment>
   );
 };
 

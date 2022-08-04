@@ -1,28 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
+import { useFetch } from "../hooks/useFetch";
 import Questionaire from "../components/Questionaire";
 import Questions from "../components/Questions";
 
 const QuestionairePage = () => {
   const { id } = useParams();
-  const [questionare, setQuestionaire] = useState(null);
-  useEffect(() => {
-    fetch(`http://localhost:3000/questionaires/${id}`, {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "http://localhost:3000",
-      },
-    })
-      .then((response) => response.json())
-      .then((questionaire) => setQuestionaire(questionaire));
-  }, [id]);
+  const [questionaire] = useFetch({url:`/questionaires/${id}`, method:"GET", dependencies: [id]})
   return (
     <React.Fragment>
-      {questionare !== null && (
+      {questionaire !== null && (
         <React.Fragment>
-          <Questionaire questionaire={questionare.questionaire} />
-          <Questions questions_filter={questionare.questions} />
+          <Questionaire questionaire={questionaire.questionaire} />
+          <Questions questions_filter={questionaire.questions} />
         </React.Fragment>
       )}
     </React.Fragment>

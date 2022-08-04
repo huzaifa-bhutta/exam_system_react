@@ -1,21 +1,19 @@
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useContext} from 'react'
 import Table from '../components/Table'
 import {Link} from 'react-router-dom'
-import { fetch_options, URI } from '../constants'
 import { GlobalContext } from '../context/GlobalContext'
+import { useFetch } from '../hooks/useFetch'
+import { rejectExam } from '../apis/questionaires'
 const ApprovedQuestionaire = () => {
-  const [approved, setApproved] = useState(null)
   const {message, setMessage} = useContext(GlobalContext)
-  useEffect(()=>{
-    fetch(`${URI}/questionaires/approved`, fetch_options()).then(response => response.json()).then(questionaire => setApproved(questionaire))
-  }, [message])
+  const [approved] = useFetch({url:'/questionaires/approved', dependencies: [message]})
   const rejectQuestionaire = (id) => {
     alert("DO you want to reject the questionaire?")
-    fetch(`${URI}/questionaires/${id}/reject`, fetch_options("PATCH")).then((res)=> res.json()).then(result => setMessage(result.message))
+    rejectExam(id, result => setMessage(result.message))
   }
   return (
     <Table>
-      {approved !==null && approved.map((questionaire, index) => {
+      {approved && approved.map((questionaire, index) => {
         return <tr key={questionaire.id}>
         <th scope="row">{index+1}</th>
         <td><Link to={`/questionaires/${questionaire.id}`}>{questionaire.name}</Link></td>

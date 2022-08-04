@@ -1,5 +1,3 @@
-import React from "react";
-
 const Table = ({children, last=""}) => {
   return (
     <table className='table'>
