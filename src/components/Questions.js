@@ -12,7 +12,15 @@ const Questions = ({ questions_filter }) => {
       <div className='card-body'>
         {questions.length &&
           questions.map((question, index) => {
-            return <SingleQuestion key={index} question={question} index={index} setQuestions={setQuestions} questions_filter={questions_filter} />
+            return (
+              <SingleQuestion
+                key={index}
+                question={question}
+                index={index}
+                setQuestions={setQuestions}
+                questions_filter={questions_filter}
+              />
+            );
           })}
       </div>
     </div>

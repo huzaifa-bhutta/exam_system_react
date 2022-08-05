@@ -1,4 +1,4 @@
-const Table = ({children, last=""}) => {
+const Table = ({ children, last = "" }) => {
   return (
     <table className='table'>
       <thead className='thead-dark'>
@@ -13,9 +13,7 @@ const Table = ({children, last=""}) => {
           <th scope='col'>{last}</th>
         </tr>
       </thead>
-      <tbody>
-        {children}
-      </tbody>
+      <tbody>{children}</tbody>
     </table>
   );
 };

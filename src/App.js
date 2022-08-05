@@ -13,7 +13,7 @@ const App = () => {
     setTimeout(() => {
       setMessage(null);
     }, 3000);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [message]);
   return (
     <Router>

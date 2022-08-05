@@ -1,20 +1,19 @@
-import React from 'react'
+import React from "react";
 
-const Questionaire = ({questionaire}) => {
+const Questionaire = ({ questionaire }) => {
   return (
-    <div className="card m-3">
-    <div className="card-header">
-       {questionaire?.subject?.title}
+    <div className='card m-3'>
+      <div className='card-header'>{questionaire?.subject?.title}</div>
+      <div className='card-body'>
+        <h5 className='card-title'>{questionaire.name}</h5>
+        <p className='card-text'>{questionaire.duration} min</p>
+        <p className='card-text'>
+          {new Date(questionaire.designated_time).toDateString()}
+        </p>
+        <p className='card-text'>Status:{questionaire.approval_status}</p>
+      </div>
     </div>
-    <div className="card-body">
-      <h5 className="card-title">{questionaire.name}</h5>
-      <p className="card-text">{questionaire.duration} min</p>
-      <p className="card-text">{new Date(questionaire.designated_time).toDateString()}</p>
-      <p className="card-text">Status:{questionaire.approval_status}</p>
-    </div>
-    
-</div>
-  )
-}
+  );
+};
 
-export default Questionaire
+export default Questionaire;

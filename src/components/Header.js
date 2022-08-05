@@ -25,13 +25,13 @@ const Header = () => {
             </Link>
           </li>
           <li className='nav-item'>
-          <Link className='nav-link' to='/questionaires/approved'>
+            <Link className='nav-link' to='/questionaires/approved'>
               Approved Questionaires
             </Link>
           </li>
           <li className='nav-item'>
-          <Link className='nav-link' to='/questionaires/teacher'>
-               Questionaires
+            <Link className='nav-link' to='/questionaires/teacher'>
+              Questionaires
             </Link>
           </li>
         </ul>
