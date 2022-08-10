@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams, Redirect } from "react-router-dom";
+import { startExam, submitExam } from "../apis/questionaires";
+import { submitQuestion } from "../apis/questions";
 import ExamAttempted from "../components/ExamAttempted";
 import ExamQuestion from "../components/ExamQuestion";
-import { fetch_options, URI } from "../constants";
 import { GlobalContext } from "../context/GlobalContext";
 
 const TakeExamPage = () => {
   const { id } = useParams();
   const { setMessage } = useContext(GlobalContext);
+  const [postBody, setPostBody] = useState(null);
   const [index, setIndex] = useState(0);
   const [redirect, setRedirect] = useState(false);
   const [attempted, setAttempted] = useState({
@@ -21,63 +23,50 @@ const TakeExamPage = () => {
   const [givenAnswer, setGivenAnswer] = useState(
     !answers.optionValue ? answers.textAnswer : answers.optionValue
   );
-
   const [questions, setQuestions] = useState([]);
   const [user, setUser] = useState(null);
+
   useEffect(() => {
-    fetch(`${URI}/questionaires/${id}/start_exam`, fetch_options())
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.status === 304) {
-          setAttempted({ status: true, message: result.message });
-        } else {
-          setQuestions(result.questions);
-          setUser(result.user);
-        }
-      });
+    startExam(id).then((result) => {
+      if (result.status === 304) {
+        setAttempted({ status: true, message: result.message });
+      } else {
+        setQuestions(result.questions);
+        setUser(result.user);
+      }
+    });
   }, [id]);
 
+  useEffect(() => {
+    setPostBody({
+      question_id: questions[index]?.id,
+      given_answer: givenAnswer,
+      obtained_score:
+        questions[index]?.answer.ans.toLowerCase() ===
+        givenAnswer.toLocaleLowerCase()
+          ? questions[index]?.score
+          : 0,
+      user_id: user?.id,
+      questionaire_id: questions[index]?.questionaire_id,
+    });
+  }, [questions, givenAnswer, index, user, answers]);
+
   const questionSubmitHandler = async () => {
-    return await fetch(
-      `${URI}/questions/${questions[index].id}/submit_question`,
-      {
-        ...fetch_options("POST"),
-        body: JSON.stringify({
-          question_id: questions[index]?.id,
-          given_answer: givenAnswer,
-          obtained_score:
-            questions[index]?.answer.ans.toLowerCase() ===
-            givenAnswer.toLocaleLowerCase()
-              ? questions[index]?.score
-              : 0,
-          user_id: user.id,
-          questionaire_id: questions[index]?.questionaire_id,
-        }),
+    return submitQuestion(questions, index, postBody).then((data) => {
+      if (data.error) {
+        setMessage(data.error);
+      } else {
+        setMessage(data.message);
+        setIndex(index + 1);
       }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.error) {
-          setMessage(data.error);
-        } else {
-          setMessage(data.message);
-          setIndex(index + 1);
-        }
-      });
+    });
   };
   const examSubmitHandler = async () => {
     await questionSubmitHandler();
-    await fetch(`${URI}/attempted_questionaires/${id}/submit_exam`, {
-      ...fetch_options("POST"),
-      body: JSON.stringify({
-        user_id: user.id,
-      }),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        setMessage(result.message);
-        setRedirect(true);
-      });
+    submitExam(id, user).then((result) => {
+      setMessage(result.message);
+      setRedirect(true);
+    });
   };
   return (
     <React.Fragment>

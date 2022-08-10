@@ -49,4 +49,4 @@ const ApprovedQuestionaire = () => {
   );
 };
 
-export default ApprovedQuestionaire;
+export default React.memo(ApprovedQuestionaire);

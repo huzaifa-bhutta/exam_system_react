@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetch_options, URI } from "../constants";
+import { fetch_options, URI } from "../apis/utils";
 
 export const useFetch = ({ url, dependencies }) => {
   const [result, setResult] = useState(null);

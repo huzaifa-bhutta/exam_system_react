@@ -16,8 +16,14 @@ const StartExam = ({ exam }) => {
           </li>
           <li className='list-group-item'>
             <strong>Start Time:</strong>
-            {new Date(exam.designated_time).toDateString()},{" "}
-            {new Date(exam.designated_time).toTimeString().split(" ")[0]}
+            {new Date(exam.designated_time).toLocaleString("en-US", {
+              year: "numeric",
+              month: "numeric",
+              day: "2-digit",
+              hour: "numeric",
+              minute: "numeric",
+              hour12: true,
+            })}
           </li>
         </ul>
         <Link

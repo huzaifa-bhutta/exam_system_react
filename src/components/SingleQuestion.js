@@ -47,4 +47,7 @@ const SingleQuestion = ({
   );
 };
 
-export default SingleQuestion;
+export default React.memo(SingleQuestion, (prev, next) => {
+  console.log(prev === next);
+  return prev === next;
+});

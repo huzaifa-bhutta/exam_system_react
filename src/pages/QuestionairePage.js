@@ -6,7 +6,10 @@ import Questions from "../components/Questions";
 
 const QuestionairePage = () => {
   const { id } = useParams();
-  const [questionaire] = useFetch({url:`/questionaires/${id}`, method:"GET", dependencies: [id]})
+  const [questionaire] = useFetch({
+    url: `/questionaires/${id}`,
+    dependencies: [id],
+  });
   return (
     <React.Fragment>
       {questionaire !== null && (

@@ -8,7 +8,14 @@ const Questionaire = ({ questionaire }) => {
         <h5 className='card-title'>{questionaire.name}</h5>
         <p className='card-text'>{questionaire.duration} min</p>
         <p className='card-text'>
-          {new Date(questionaire.designated_time).toDateString()}
+          {new Date(questionaire.designated_time).toLocaleString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "numeric",
+            minute: "numeric",
+            hour12: true,
+          })}
         </p>
         <p className='card-text'>
           Status:

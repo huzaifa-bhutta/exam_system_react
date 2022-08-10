@@ -24,7 +24,7 @@ const QuestionairesPage = () => {
               <td>{questionaire.approval_status}</td>
               <td>
                 <Link to={`/questionaires/${questionaire.id}/students`}>
-                  {questionaire.attempted_questionaires.length}
+                  {questionaire.attempted_questionaires.length} {" students"}
                 </Link>
               </td>
             </tr>
