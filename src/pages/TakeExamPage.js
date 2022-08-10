@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Radio, RadioGroup } from "react-radio-group";
 import { useParams, Redirect } from "react-router-dom";
 import ExamAttempted from "../components/ExamAttempted";
+import ExamQuestion from "../components/ExamQuestion";
 import { fetch_options, URI } from "../constants";
 import { GlobalContext } from "../context/GlobalContext";
+
 const TakeExamPage = () => {
   const { id } = useParams();
   const { setMessage } = useContext(GlobalContext);
@@ -35,12 +36,6 @@ const TakeExamPage = () => {
         }
       });
   }, [id]);
-  useEffect(() => {
-    setGivenAnswer(
-      !answers.optionValue ? answers.textAnswer : answers.optionValue
-    );
-    return () => {};
-  }, [answers]);
 
   const questionSubmitHandler = async () => {
     return await fetch(
@@ -93,40 +88,13 @@ const TakeExamPage = () => {
           <h2 className='p-3'>{questions[index]?.questionaire?.name}</h2>
           <div className='m-3 d-flex flex-column'>
             {questions[index] && (
-              <div className='card'>
-                <p className='card-header'>{questions[index].qs}</p>
-                {questions[index]?.options.length === 0 ? (
-                  <textarea
-                    rows={"2"}
-                    value={answers.textAnswer}
-                    onChange={(e) => setAnswers({ textAnswer: e.target.value })}
-                  />
-                ) : (
-                  <ul className='list-group list-group-flush'>
-                    <RadioGroup
-                      name='options'
-                      selectedValue={answers.optionValue}
-                      onChange={(value) => setAnswers({ optionValue: value })}>
-                      <li className='list-group-item'>
-                        <Radio value={questions[index].options[0].option} />{" "}
-                        {questions[index].options[0].option}
-                      </li>
-                      <li className='list-group-item'>
-                        <Radio value={questions[index].options[0].option2} />{" "}
-                        {questions[index].options[0].option2}
-                      </li>
-                      <li className='list-group-item'>
-                        <Radio value={questions[index].options[0].option3} />{" "}
-                        {questions[index].options[0].option3}
-                      </li>
-                      <li className='list-group-item'>
-                        <Radio value={questions[index].options[0].option4} />{" "}
-                        {questions[index].options[0].option4}
-                      </li>
-                    </RadioGroup>
-                  </ul>
-                )}
-              </div>
+              <ExamQuestion
+                questions={questions}
+                index={index}
+                answers={answers}
+                setAnswers={setAnswers}
+                setGivenAnswer={setGivenAnswer}
+              />
             )}
             {index === questions.length - 1 || questions.length === 0 ? (
               <button

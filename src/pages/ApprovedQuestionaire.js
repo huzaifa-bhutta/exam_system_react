@@ -30,7 +30,11 @@ const ApprovedQuestionaire = () => {
               <td>{new Date(questionaire.designated_time).toDateString()}</td>
               <td>{questionaire.subject.title}</td>
               <td>{questionaire.teacher.email}</td>
-              <td>{questionaire.approval_status}</td>
+              <td>
+                <span className='badge badge-primary'>
+                  {questionaire.approval_status}
+                </span>
+              </td>
               <td>
                 <button
                   onClick={() => rejectQuestionaire(questionaire.id)}

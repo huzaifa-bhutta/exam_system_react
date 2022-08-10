@@ -10,7 +10,17 @@ const Questionaire = ({ questionaire }) => {
         <p className='card-text'>
           {new Date(questionaire.designated_time).toDateString()}
         </p>
-        <p className='card-text'>Status:{questionaire.approval_status}</p>
+        <p className='card-text'>
+          Status:
+          <span
+            className={`badge ${
+              questionaire.approval_status === "approved"
+                ? "badge-primary"
+                : "badge-danger"
+            } ml-1`}>
+            {questionaire.approval_status.toUpperCase()}
+          </span>
+        </p>
       </div>
     </div>
   );
