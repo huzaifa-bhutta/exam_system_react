@@ -8,12 +8,14 @@ const SingleQuestion = ({
   questions_filter,
 }) => {
   const onDeleteHandler = (question_id) => {
-    deleteQuestion(question_id, (result) => {
-      result.status === 200 &&
-        setQuestions(() =>
-          questions_filter.filter((elem) => elem.id !== question_id)
-        );
-    });
+    let check = window.confirm("Do you want to delete this question?");
+    check &&
+      deleteQuestion(question_id, (result) => {
+        result.status === 200 &&
+          setQuestions(() =>
+            questions_filter.filter((elem) => elem.id !== question_id)
+          );
+      });
   };
   return (
     <div className='card mb-5' key={question.id}>
@@ -47,7 +49,4 @@ const SingleQuestion = ({
   );
 };
 
-export default React.memo(SingleQuestion, (prev, next) => {
-  console.log(prev === next);
-  return prev === next;
-});
+export default SingleQuestion;

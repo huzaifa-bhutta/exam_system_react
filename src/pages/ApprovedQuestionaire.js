@@ -11,8 +11,8 @@ const ApprovedQuestionaire = () => {
     dependencies: [message],
   });
   const rejectQuestionaire = (id) => {
-    alert("DO you want to reject the questionaire?");
-    rejectExam(id, (result) => setMessage(result.message));
+    let check = window.confirm("DO you want to reject the questionaire?");
+    check && rejectExam(id, (result) => setMessage(result.message));
   };
   return (
     <Table>
@@ -49,4 +49,4 @@ const ApprovedQuestionaire = () => {
   );
 };
 
-export default React.memo(ApprovedQuestionaire);
+export default ApprovedQuestionaire;

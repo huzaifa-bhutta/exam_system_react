@@ -12,21 +12,22 @@ const StudentsListPage = () => {
   return (
     <div className='card m-3'>
       <h6 className='card-header'>Review Students' Results</h6>
-      <div className='card-body'>
+      <ol className='card-body'>
         {studentList &&
           studentList.map((student) => {
             return (
-              <p key={student.id}>
-                <strong> {student.user?.full_name}</strong> &bull;{" "}
-                <Link to={`${url}/result/student/${student.user?.id}`}>
-                  {student.user?.email}
-                </Link>
-              </p>
+              <>
+                <li key={student.id} className='ml-4'>
+                  <strong> {student.user?.full_name}</strong> &bull;{" "}
+                  <Link to={`${url}/result/student/${student.user?.id}`}>
+                    {student.user?.email}
+                  </Link>
+                </li>
+                <hr />
+              </>
             );
           })}
-
-        <hr />
-      </div>
+      </ol>
     </div>
   );
 };

@@ -30,11 +30,15 @@ const TakeExamPage = () => {
     startExam(id).then((result) => {
       if (result.status === 304) {
         setAttempted({ status: true, message: result.message });
+      } else if (result.status === 404) {
+        setRedirect(true);
+        setMessage(result.message);
       } else {
         setQuestions(result.questions);
         setUser(result.user);
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   useEffect(() => {
